@@ -197,7 +197,8 @@ Essa dependência traz a implementação padrão do **Jakarta Bean Validation** 
 
 
 ## 2️⃣🛠️ Criando DTO com Record e Validações
-- Vamos criar um DTO `ProdutoRequest` usando **Record** para validar a entrada:
+
+- Caso, ainda não tenha feito, vamos criar um DTO `ProdutoRequest` usando **Record** para validar a entrada:
 
   ```java
   package br.com.casasbahia.crud_h2.controller.dto;
@@ -233,6 +234,8 @@ Essa dependência traz a implementação padrão do **Jakarta Bean Validation** 
 
   <img src="images/produto-request-3.png" alt="H2 Console" width="900"/>
 
+
+> **Observação**: Caso já exista no projeto o arquivo `ProdutoRequest.java`, será necessário atualizá-lo para o novo formato de Record.
 
 
 ---
