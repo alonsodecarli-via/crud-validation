@@ -417,6 +417,62 @@ Com essa nova abordagem, a resposta de erro será mais clara e organizada.
 # 📚 Fortalecendo o Conhecimento
 
 
+## Melhorando a Experiência do Usuário no Swagger
+
+- Podemos adicionar descrições e exemplos aos nossos endpoints usando anotações do Swagger.
+```java
+package br.com.casasbahia.crud_h2.controller.dto;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
+import java.math.BigDecimal;
+
+@Schema(description = "Objeto utilizado para criar ou atualizar um produto")
+public record ProdutoRequest(
+
+        @Schema(
+                description = "Nome do produto",
+                example = "Notebook Dell"
+        )
+        @NotBlank(message = "O nome é obrigatório")
+        @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
+        String nome,
+
+        @Schema(
+                description = "Código NCM com 8 dígitos",
+                example = "12345678"
+        )
+        @NotBlank(message = "O NCM é obrigatório")
+        @Pattern(regexp = "\\d{8}", message = "O NCM deve conter exatamente 8 dígitos")
+        String ncm,
+
+        @Schema(
+                description = "Descrição opcional do NCM",
+                example = "Notebook com processador Intel Core i7"
+        )
+        @Size(max = 255, message = "A descrição não pode ter mais de 255 caracteres")
+        String descricaoNcm,
+
+        @Schema(
+                description = "Preço do produto",
+                example = "2999.99"
+        )
+        @NotNull(message = "O preço é obrigatório")
+        @DecimalMin(value = "0.01", message = "O preço deve ser maior que zero")
+        BigDecimal preco,
+
+        @Schema(
+                description = "Quantidade disponível em estoque",
+                example = "10"
+        )
+        @NotNull(message = "A quantidade é obrigatória")
+        @Min(value = 0, message = "A quantidade não pode ser negativa")
+        Integer quantidade
+) {}
+```
+
+- @Schema permite adicionar metadados aos campos do DTO, como descrição e exemplo.
+
 ## 🎨 Mensagens Customizadas via Arquivo
 - Podemos centralizar as mensagens em `messages.properties`:
 
