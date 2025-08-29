@@ -82,6 +82,7 @@ O **Bean Validation** é uma especificação da plataforma Java que define um co
 
 ### ✨ Características principais:
 - **Padronizado**: segue a especificação Jakarta Bean Validation (JSR 380/399).
+  - 📚 **Java Specification Request (JSR)**: é um documento oficial que descreve como um recurso ou API deve funcionar dentro da plataforma Java.
 - **Baseado em anotações**: validações declaradas diretamente nos atributos.
 - **Integração automática**: no Spring Boot, funciona de forma nativa com `@Valid` e `@Validated`.
 - **Extensível**: permite criar suas próprias anotações e validadores customizados.
@@ -179,8 +180,8 @@ Agora, além de termos a classe **Produto** e a estrutura correspondente já def
 
   ```xml
   <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-validation</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
   </dependency>
   ```
 
@@ -250,38 +251,35 @@ Essa dependência traz a implementação padrão do **Jakarta Bean Validation** 
   ```java
   package br.com.casasbahia.crud_h2.controller.mapper;
 
-
   import br.com.casasbahia.crud_h2.controller.dto.ProdutoRequest;
   import br.com.casasbahia.crud_h2.controller.dto.ProdutoResponse;
   import br.com.casasbahia.crud_h2.model.Produto;
   import org.springframework.stereotype.Component;
 
-
   @Component
   public class ProdutoMapper {
 
+    public Produto toEntity(ProdutoRequest dto) {
+      Produto p = new Produto();
+      p.setNome(dto.nome());
+      p.setNcm(dto.ncm());
+      p.setDescricaoNcm(dto.descricaoNcm());
+      p.setPreco(dto.preco());
+      p.setQuantidade(dto.quantidade());
+      return p;
+    }
 
-  public Produto toEntity(ProdutoRequest dto) {
-  Produto p = new Produto();
-  p.setNome(dto.nome());
-  p.setNcm(dto.ncm());
-  p.setDescricaoNcm(dto.descricaoNcm());
-  p.setPreco(dto.preco());
-  p.setQuantidade(dto.quantidade());
-  return p;
-  }
 
-
-  public ProdutoResponse toResponse(Produto produto) {
-  ProdutoResponse dto = new ProdutoResponse();
-  dto.setId(produto.getId());
-  dto.setNome(produto.getNome());
-  dto.setNcm(produto.getNcm());
-  dto.setDescricaoNcm(produto.getDescricaoNcm());
-  dto.setPreco(produto.getPreco());
-  dto.setQuantidade(produto.getQuantidade());
-  return dto;
-  }
+    public ProdutoResponse toResponse(Produto produto) {
+      ProdutoResponse dto = new ProdutoResponse();
+      dto.setId(produto.getId());
+      dto.setNome(produto.getNome());
+      dto.setNcm(produto.getNcm());
+      dto.setDescricaoNcm(produto.getDescricaoNcm());
+      dto.setPreco(produto.getPreco());
+      dto.setQuantidade(produto.getQuantidade());
+      return dto;
+    }
   }
   ```
 
@@ -341,14 +339,13 @@ Para melhorar a experiência do cliente da API, podemos capturar os erros de val
   @Hidden
   public class GlobalExceptionHandler {
 
-
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-  Map<String, String> errors = new HashMap<>();
-  ex.getBindingResult().getFieldErrors().forEach(error ->
-  errors.put(error.getField(), error.getDefaultMessage()));
-  return ResponseEntity.badRequest().body(errors);
-  }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+      Map<String, String> errors = new HashMap<>();
+      ex.getBindingResult().getFieldErrors().forEach(error ->
+      errors.put(error.getField(), error.getDefaultMessage()));
+      return ResponseEntity.badRequest().body(errors);
+    }
   }
   ```
   <img src="images/exception-1-atualizada.png" alt="H2 Console" width="900"/>
