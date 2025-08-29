@@ -323,6 +323,7 @@ Para melhorar a experiência do cliente da API, podemos capturar os erros de val
   package br.com.casasbahia.crud_h2.exception;
 
 
+  import io.swagger.v3.oas.annotations.Hidden;
   import org.springframework.http.ResponseEntity;
   import org.springframework.web.bind.MethodArgumentNotValidException;
   import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -334,6 +335,7 @@ Para melhorar a experiência do cliente da API, podemos capturar os erros de val
 
 
   @RestControllerAdvice
+  @Hidden
   public class GlobalExceptionHandler {
 
 
