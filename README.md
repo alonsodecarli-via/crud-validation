@@ -529,6 +529,49 @@ public record ProdutoRequest(
           @Validated(OnUpdate.class) @RequestBody ProdutoRequest request) { ... }
   ```
 
+
+> **Observação**: Separar DTOs para Create e Update é uma boa prática para manter a clareza e a organização do código.
+
+Segue um exemplo:
+
+- `ProdutoCreateRequest.java`
+
+  ```java
+  public record ProdutoCreateRequest(
+
+      @NotBlank(message = "O nome é obrigatório")
+      String nome,
+
+      @NotBlank(message = "O NCM é obrigatório")
+      String ncm,
+
+      BigDecimal preco,
+      Integer quantidade
+  ) {}
+
+  ```
+
+- `ProdutoUpdateRequest.java`
+
+  ```java
+  public record ProdutoUpdateRequest(
+
+      @NotNull(message = "O ID é obrigatório")
+      Long id,
+
+      @NotBlank(message = "O nome é obrigatório")
+      String nome,
+
+      @NotBlank(message = "O NCM é obrigatório")
+      String ncm,
+
+      BigDecimal preco,
+      Integer quantidade
+  ) {}
+  ```
+
+
+
 ---
 
 
