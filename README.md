@@ -532,7 +532,7 @@ public record ProdutoRequest(
 
 > **Observação**: Separar DTOs para Create e Update é uma boa prática para manter a clareza e a organização do código.
 
-Segue um exemplo:
+Segue um exemplo de como ficariam os DTOs para criação e atualização de produtos:
 
 - `ProdutoCreateRequest.java`
 
