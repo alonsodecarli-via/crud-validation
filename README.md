@@ -348,7 +348,7 @@ Para melhorar a experiência do cliente da API, podemos capturar os erros de val
   }
   }
   ```
-  <img src="images/exception-1.png" alt="H2 Console" width="900"/>
+  <img src="images/exception-1-atualizada.png" alt="H2 Console" width="900"/>
 
   
 
